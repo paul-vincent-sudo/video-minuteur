@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Vidéo disponible après le compte à rebours</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-color: #f8f8f8;
+        padding: 50px;
+    }
+    #countdown {
+        font-size: 2em;
+        margin-bottom: 20px;
+    }
+    #video-container {
+        display: none;
+        margin-top: 20px;
+    }
+</style>
+</head>
+<body>
+
+<h1> 👀 Le compte à rebours est lancé ! </h1> 
+Découvrez le nom de notre futur outil métier dans 
+<div id="countdown">Chargement...</div>
+
+<div id="video-container">
+    <video controls width="640">
+        <source src="video-MS-Composition2" type="video/mp4">
+        Votre navigateur ne supporte pas la vidéo.
+    </video>
+</div>
+
+<script>
+    // 📅 Date fixée au 20 août 2025 à 10h00
+    const targetDate = new Date("2025-08-20 10:00:00").getTime();
+
+    const countdownEl = document.getElementById("countdown");
+    const videoContainer = document.getElementById("video-container");
+
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+
+        if (distance <= 0) {
+            countdownEl.textContent = "La vidéo est disponible !";
+            videoContainer.style.display = "block";
+            clearInterval(interval);
+            return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        countdownEl.textContent = `${days}j ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    updateCountdown();
+    const interval = setInterval(updateCountdown, 1000);
+</script>
+
+</body>
+</html>
